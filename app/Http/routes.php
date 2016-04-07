@@ -39,4 +39,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		Route::post('{id}', 'CategoryController@update')->where('id', '[0-9]+');
 	// 	Route::post('{id}/disable', 'CategoryController@disable')->where('id', '[0-9]+');		
 	});
+
+	Route::group(['prefix'=>'menus'],function(){
+		Route::get('/', 'MenuController@index');
+		Route::get('create', 'MenuController@create');
+		Route::post('/', 'MenuController@store');
+		Route::get('{id}', 'MenuController@show')->where('id', '[0-9]+');
+		Route::get('{id}/edit', 'MenuController@edit')->where('id', '[0-9]+');
+		Route::post('{id}', 'MenuController@update')->where('id', '[0-9]+');
+	// 	Route::post('{id}/disable', 'MenuController@disable')->where('id', '[0-9]+');		
+	});
 });

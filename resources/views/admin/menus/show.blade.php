@@ -11,7 +11,6 @@
 
                 <div class="panel-body">
                     <h2>{{$menu->title}}</h2>
-                    <br>
                     <p>
                         <a class="btn btn-default" href="{{action('MenuController@edit', ['id' => $menu->id])}}">Editar</a>
                     </p>
