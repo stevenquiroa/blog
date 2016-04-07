@@ -17,7 +17,8 @@ class CategorieTableSeeder extends Seeder
     	$userId = User::where('email','steven@nadd.co')->pluck('id')[0];
 
     	$category = new Category();
-    	$category->title = 'Categoría Base';
+        $category->title = 'Categoría Base';
+    	$category->slug = 'base';
     	$category->description = 'Esta es la categoria para los que no estén categorizados';
     	$category->status = 'active';
     	$category->user_id = $userId;

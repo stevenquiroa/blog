@@ -11,7 +11,7 @@
                     <p>Modulos disponibles:</p>
                     <ul>
                         <li><a href="{{action('PostController@index')}}">Publicaciones</a></li>
-                        <li>Categorias</li>
+                        <li><a href="{{action('CategoryController@index')}}">Categorias</a></li>
                         <li>Menus</li>
                         <li>Usuarios</li>
                     </ul>

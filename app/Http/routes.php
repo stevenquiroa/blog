@@ -29,4 +29,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		Route::post('{id}', 'PostController@update')->where('id', '[0-9]+');
 	// 	Route::post('{id}/disable', 'PostController@disable')->where('id', '[0-9]+');		
 	});
+
+	Route::group(['prefix'=>'categories'],function(){
+		Route::get('/', 'CategoryController@index');
+		Route::get('create', 'CategoryController@create');
+		Route::post('/', 'CategoryController@store');
+		Route::get('{id}', 'CategoryController@show')->where('id', '[0-9]+');
+		Route::get('{id}/edit', 'CategoryController@edit')->where('id', '[0-9]+');
+		Route::post('{id}', 'CategoryController@update')->where('id', '[0-9]+');
+	// 	Route::post('{id}/disable', 'CategoryController@disable')->where('id', '[0-9]+');		
+	});
 });

@@ -48,9 +48,9 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ action('AdminController@index') }}">Dashboard</a></li>
-                    <li><a href="{{ action('PostController@index') }}">Posts</a></li>
-                    <li><a href="{{ action('AdminController@index') }}">Categorias</a></li>
-                    <li><a href="{{ action('AdminController@index') }}">Menus</a></li>
+                    <li><a href="{{ action('PostController@index') }}">Publicaciones</a></li>
+                    <li><a href="{{ action('CategoryController@index') }}">Categorias</a></li>
+                    <li><a href="{{ action('MenuController@index') }}">Menus</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
