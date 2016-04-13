@@ -9,6 +9,7 @@ use App\Category;
 use App\Menu;
 use App\Post;
 use Auth;
+use DB;
 
 class MenuController extends Controller
 {
@@ -52,6 +53,23 @@ class MenuController extends Controller
     	$menu->status = 'active';
     	$menu->save();
 
+        $tabs = $request->input('tabs_menu');
+        $tabs = json_decode($tabs);
+        if ($tabs) {
+            foreach ($tabs as $t) {
+                $url = Menu::getURL($t);
+                DB::table('menu_tabs')->insert([
+                    'id' => $t->id,
+                    'name' => $t->name,
+                    'type' => $t->type,
+                    'url' => $url,
+                    'location' => $menu->id,
+                    'order' => $t->order,
+                    'entity_id' => $t->entity_id,
+                    'parent' => $t->parent
+                ]);
+            }
+        }
     	return redirect(action('MenuController@index'));
     }
 
@@ -63,8 +81,8 @@ class MenuController extends Controller
     public function edit($id){
     	$menu = Menu::find($id);
     	return view('admin.menus.edit', [
-    		'menu' => $menu,
-    	]);
+    		'menu' => $menu
+        ]);
     }
 
     public function update(Request $request, $id){
@@ -77,7 +95,31 @@ class MenuController extends Controller
     	$menu->status = $request->input('status');
     	$menu->save();
 
+        $tabs = $request->input('tabs_menu');
+        $tabs = json_decode($tabs);
+
+        $aux = DB::table('menu_tabs')->where('location', $menu->id)->get();
+        $delete = DB::table('menu_tabs')->where('location', $menu->id)->delete();
+
+        foreach ($tabs as $t) {
+            $url = Menu::getURL($t);
+            DB::table('menu_tabs')->insert([
+                'id' => $t->id,
+                'name' => $t->name,
+                'type' => $t->type,
+                'url' => $url,
+                'location' => $menu->id,
+                'order' => $t->order,
+                'entity_id' => $t->entity_id,
+                'parent' => $t->parent
+            ]);
+        }
     	return redirect(action('MenuController@show', ['id' => $id]));
+    }
+
+    public function getJson($id){
+        $tabs = DB::table('menu_tabs')->where('location', $id)->orderBy('order')->get();
+        return response()->json($tabs, 200);
     }
 }
 

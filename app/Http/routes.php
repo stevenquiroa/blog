@@ -49,4 +49,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		Route::post('{id}', 'MenuController@update')->where('id', '[0-9]+');
 	// 	Route::post('{id}/disable', 'MenuController@disable')->where('id', '[0-9]+');		
 	});
+
+});
+Route::group(['prefix'=>'api/v1'], function(){
+	Route::group(['prefix'=>'posts'],function(){		
+		Route::get('/', 'PostController@search');
+	});
+	Route::group(['prefix'=>'menus'],function(){		
+		Route::get('{id}', 'MenuController@getJson')->where('id', '[0-9]+');
+	});
 });

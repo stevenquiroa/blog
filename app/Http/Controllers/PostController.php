@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Category;
 use App\Post;
 use Auth;
+use Validator;
 
 class PostController extends Controller
 {
@@ -109,6 +110,25 @@ class PostController extends Controller
     	}
 
     	return redirect(action('PostController@preview', ['id' => $id]));
+    }
+
+    public function search(Request $request){
+        $validator = Validator::make($request->all(), [
+            'title' => ['string'],
+            'type' => ['regex:(post|page|category)'],
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => 'field_validation', 'message' => 'Algun campo estas enviando mal'], 400);
+        }
+
+        if ($request->input('type') == 'category') {
+            $posts = Category::where('status', 'active')->search($request->input('title'))->take(5)->get(['id', 'slug', 'title']);
+        } else {
+            $posts = Post::byType($request->input('type'))->where('status', 'active')->search($request->input('title'))->take(5)->get(['id', 'slug', 'title']);
+        }
+
+        return response()->json($posts, 200);
     }
 }
 

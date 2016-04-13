@@ -1,3 +1,5 @@
+process.env.DISABLE_NOTIFIER = true;
+
 var elixir = require('laravel-elixir');
 
 /*
@@ -12,5 +14,6 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.sass('app.scss').version('public/css/app.css');
+	mix.scripts('admin/menu.js', 'public/js/admin/menu.js'); 
 });

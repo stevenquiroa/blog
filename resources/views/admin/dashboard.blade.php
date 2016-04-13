@@ -12,7 +12,7 @@
                     <ul>
                         <li><a href="{{action('PostController@index')}}">Publicaciones</a></li>
                         <li><a href="{{action('CategoryController@index')}}">Categorias</a></li>
-                        <li>Menus</li>
+                        <li><a href="{{action('MenuController@index')}}">Menus</a></li>
                         <li>Usuarios</li>
                     </ul>
                 </div>

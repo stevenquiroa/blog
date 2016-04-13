@@ -21,7 +21,7 @@ class CreateMenuTable extends Migration
         });
 
         Schema::create('menu_tabs', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('id')->unique();
             $table->string('name');
             $table->string('type'); //url, entity
             
@@ -30,10 +30,11 @@ class CreateMenuTable extends Migration
 
             //menu 
             $table->integer('location')->unsigned();
-            
+            $table->integer('order');
             //if tab have a parent
-            $table->integer('parent')->nullable();
+            $table->string('parent')->nullable();
 
+            $table->integer('entity_id');
             //meta from tab
             $table->string('meta')->nullable();
             $table->timestamps();
@@ -41,6 +42,7 @@ class CreateMenuTable extends Migration
             $table->foreign('location')->references('id')->on('menus')
                  ->onUpdate('cascade')->onDelete('cascade');
 
+            $table->primary(['id']);
         });
     }
 
